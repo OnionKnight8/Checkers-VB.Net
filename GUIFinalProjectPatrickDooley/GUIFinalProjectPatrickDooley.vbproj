@@ -73,12 +73,27 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="About.Designer.vb">
+      <DependentUpon>About.vb</DependentUpon>
+    </Compile>
+    <Compile Include="About.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Checkers.Designer.vb">
       <DependentUpon>Checkers.vb</DependentUpon>
     </Compile>
     <Compile Include="Checkers.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="GamePiece.vb" />
+    <Compile Include="GameSpace.vb" />
+    <Compile Include="Instructions.Designer.vb">
+      <DependentUpon>Instructions.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Instructions.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Player.vb" />
     <Compile Include="StartScreen.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -103,6 +118,15 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="About.resx">
+      <DependentUpon>About.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Checkers.resx">
+      <DependentUpon>Checkers.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Instructions.resx">
+      <DependentUpon>Instructions.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
@@ -127,6 +151,24 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\7.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\test.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\player1turn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\player2turn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\player1turn1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Untitled2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\player2turn1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

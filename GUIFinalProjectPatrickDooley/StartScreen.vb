@@ -1,9 +1,10 @@
-﻿'   Title: Checkers!
-'   Author: Patrick Dooley
-'   Date: 4/23/2019
-'   Purpose: A game of checkers for two players. Saves scores and allows users to save/load
-'   a game.
-
+﻿''' <summary>
+''' Title: Checkers!
+''' Author: Patrick Dooley
+''' Date: 4/23/2019
+''' Purpose: A game of checkers for two players. Saves scores and allows users to save/load
+''' a game.
+''' </summary>
 
 Public Class StartScreen
     '   This form is the first one opened. It allows users to enter their names.
@@ -12,9 +13,10 @@ Public Class StartScreen
     Private Sub btnPlay_Click(sender As Object, e As EventArgs) Handles btnPlay.Click
         '   The play button validates the users input, and then opens the chekerboard form.
 
-        Dim strErrorNotChar As String = "Please only enter letters."
-        Dim strErrorBlank As String = "Names cannot be blank!"
+        Dim strErrorNotChar As String = "Names can only be letters."
+        Dim strErrorBlank As String = "Names cannot be blank."
         Dim strErrorTooManyChars As String = "Names can only be 10 characters or less."
+        Dim strErrorSameNames As String = "Names cannot be the same."
 
         If txtPlayer1.Text = "" Or txtPlayer2.Text = "" Then
             MsgBox(strErrorBlank, , "Error")
@@ -22,6 +24,14 @@ Public Class StartScreen
             MsgBox(strErrorNotChar, , "Error")
         ElseIf txtPlayer1.Text.Length > 10 Or txtPlayer2.Text.Length > 10 Then
             MsgBox(strErrorTooManyChars, , "Error")
+        ElseIf txtPlayer1.Text = txtPlayer2.Text Then
+            MsgBox(strErrorSameNames, , "Error")
+        Else
+            Dim p1 As New Player(1, txtPlayer1.Text, 0)
+            Dim p2 As New Player(2, txtPlayer2.Text, 0)
+            Dim checkersForm As New Checkers(p1, p2)
+            Hide()
+            checkersForm.ShowDialog()
         End If
     End Sub
 
@@ -45,13 +55,15 @@ Public Class StartScreen
 
     Private Sub mnuInstruct_Click(sender As Object, e As EventArgs) Handles mnuInstruct.Click
         '   Opens Instructions form.
-
+        Dim instructionsForm As New Instructions
+        instructionsForm.ShowDialog()
 
     End Sub
 
     Private Sub mnuAbout_Click(sender As Object, e As EventArgs) Handles mnuAbout.Click
         'Opens About form.
-
+        Dim aboutForm As New About
+        aboutForm.ShowDialog()
 
     End Sub
 

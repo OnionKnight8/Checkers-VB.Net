@@ -37,8 +37,8 @@ Partial Class StartScreen
         Me.mnuExit = New System.Windows.Forms.ToolStripMenuItem()
         Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuInstruct = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuAbout = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuLog = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuAbout = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -65,7 +65,7 @@ Partial Class StartScreen
         '
         'PictureBox1
         '
-        Me.PictureBox1.Image = Global.GUIFinalProjectPatrickDooley.My.Resources.Resources._7
+        Me.PictureBox1.Image = Global.GUIFinalProjectPatrickDooley.My.Resources.Resources.checkerboard
         Me.PictureBox1.Location = New System.Drawing.Point(20, 118)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(414, 286)
@@ -141,19 +141,19 @@ Partial Class StartScreen
         'mnuLoad
         '
         Me.mnuLoad.Name = "mnuLoad"
-        Me.mnuLoad.Size = New System.Drawing.Size(180, 22)
+        Me.mnuLoad.Size = New System.Drawing.Size(101, 22)
         Me.mnuLoad.Text = "Load"
         '
         'mnuClear
         '
         Me.mnuClear.Name = "mnuClear"
-        Me.mnuClear.Size = New System.Drawing.Size(180, 22)
+        Me.mnuClear.Size = New System.Drawing.Size(101, 22)
         Me.mnuClear.Text = "Clear"
         '
         'mnuExit
         '
         Me.mnuExit.Name = "mnuExit"
-        Me.mnuExit.Size = New System.Drawing.Size(180, 22)
+        Me.mnuExit.Size = New System.Drawing.Size(101, 22)
         Me.mnuExit.Text = "Exit"
         '
         'HelpToolStripMenuItem
@@ -166,23 +166,24 @@ Partial Class StartScreen
         'mnuInstruct
         '
         Me.mnuInstruct.Name = "mnuInstruct"
-        Me.mnuInstruct.Size = New System.Drawing.Size(180, 22)
+        Me.mnuInstruct.Size = New System.Drawing.Size(149, 22)
         Me.mnuInstruct.Text = "Instructions"
-        '
-        'mnuAbout
-        '
-        Me.mnuAbout.Name = "mnuAbout"
-        Me.mnuAbout.Size = New System.Drawing.Size(180, 22)
-        Me.mnuAbout.Text = "About/Credits"
         '
         'mnuLog
         '
         Me.mnuLog.Name = "mnuLog"
-        Me.mnuLog.Size = New System.Drawing.Size(180, 22)
+        Me.mnuLog.Size = New System.Drawing.Size(149, 22)
         Me.mnuLog.Text = "Game Log"
+        '
+        'mnuAbout
+        '
+        Me.mnuAbout.Name = "mnuAbout"
+        Me.mnuAbout.Size = New System.Drawing.Size(149, 22)
+        Me.mnuAbout.Text = "About/Credits"
         '
         'StartScreen
         '
+        Me.AcceptButton = Me.btnPlay
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Bisque
@@ -196,7 +197,9 @@ Partial Class StartScreen
         Me.Controls.Add(Me.lblInstruct)
         Me.Controls.Add(Me.lblHeader)
         Me.Controls.Add(Me.MenuStrip1)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.MainMenuStrip = Me.MenuStrip1
+        Me.MaximizeBox = False
         Me.Name = "StartScreen"
         Me.Text = "Player Select"
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
