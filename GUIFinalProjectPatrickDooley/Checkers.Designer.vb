@@ -25,6 +25,7 @@ Partial Class Checkers
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Checkers))
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuNew = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuSave = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuLoad = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuExit = New System.Windows.Forms.ToolStripMenuItem()
@@ -56,6 +57,13 @@ Partial Class Checkers
         Me.lblPlayer2 = New System.Windows.Forms.Label()
         Me.lblPieces2 = New System.Windows.Forms.Label()
         Me.lblP2PiecesTaken = New System.Windows.Forms.Label()
+        Me.btnMove = New System.Windows.Forms.Button()
+        Me.lblFrom = New System.Windows.Forms.Label()
+        Me.lblTo = New System.Windows.Forms.Label()
+        Me.lblInitialSpace = New System.Windows.Forms.Label()
+        Me.lblTargetSpace = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.btnClear = New System.Windows.Forms.Button()
         Me.picP2Turn = New System.Windows.Forms.PictureBox()
         Me.picP1Turn = New System.Windows.Forms.PictureBox()
         Me.picG1 = New System.Windows.Forms.PictureBox()
@@ -122,13 +130,6 @@ Partial Class Checkers
         Me.picC8 = New System.Windows.Forms.PictureBox()
         Me.picB8 = New System.Windows.Forms.PictureBox()
         Me.picA8 = New System.Windows.Forms.PictureBox()
-        Me.btnMove = New System.Windows.Forms.Button()
-        Me.lblFrom = New System.Windows.Forms.Label()
-        Me.lblTo = New System.Windows.Forms.Label()
-        Me.lblInitialSpace = New System.Windows.Forms.Label()
-        Me.lblTargetSpace = New System.Windows.Forms.Label()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.btnClear = New System.Windows.Forms.Button()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.picP2Turn, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picP1Turn, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -209,10 +210,16 @@ Partial Class Checkers
         '
         'FileToolStripMenuItem
         '
-        Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuSave, Me.mnuLoad, Me.mnuExit})
+        Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuNew, Me.mnuSave, Me.mnuLoad, Me.mnuExit})
         Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
         Me.FileToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
         Me.FileToolStripMenuItem.Text = "File"
+        '
+        'mnuNew
+        '
+        Me.mnuNew.Name = "mnuNew"
+        Me.mnuNew.Size = New System.Drawing.Size(100, 22)
+        Me.mnuNew.Text = "New"
         '
         'mnuSave
         '
@@ -522,6 +529,87 @@ Partial Class Checkers
         Me.lblP2PiecesTaken.TabIndex = 103
         Me.lblP2PiecesTaken.Text = "XX"
         Me.lblP2PiecesTaken.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'btnMove
+        '
+        Me.btnMove.BackColor = System.Drawing.Color.Tan
+        Me.btnMove.Font = New System.Drawing.Font("Gill Sans Ultra Bold", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnMove.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.btnMove.Location = New System.Drawing.Point(291, 751)
+        Me.btnMove.Name = "btnMove"
+        Me.btnMove.Size = New System.Drawing.Size(167, 38)
+        Me.btnMove.TabIndex = 106
+        Me.btnMove.Text = "Move!"
+        Me.btnMove.UseVisualStyleBackColor = False
+        '
+        'lblFrom
+        '
+        Me.lblFrom.AutoSize = True
+        Me.lblFrom.Font = New System.Drawing.Font("Franklin Gothic Medium Cond", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblFrom.Location = New System.Drawing.Point(287, 788)
+        Me.lblFrom.Name = "lblFrom"
+        Me.lblFrom.Size = New System.Drawing.Size(43, 21)
+        Me.lblFrom.TabIndex = 107
+        Me.lblFrom.Text = "From:"
+        Me.lblFrom.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'lblTo
+        '
+        Me.lblTo.AutoSize = True
+        Me.lblTo.Font = New System.Drawing.Font("Franklin Gothic Medium Cond", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblTo.Location = New System.Drawing.Point(431, 788)
+        Me.lblTo.Name = "lblTo"
+        Me.lblTo.Size = New System.Drawing.Size(27, 21)
+        Me.lblTo.TabIndex = 108
+        Me.lblTo.Text = "To:"
+        Me.lblTo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'lblInitialSpace
+        '
+        Me.lblInitialSpace.BackColor = System.Drawing.Color.Tan
+        Me.lblInitialSpace.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.lblInitialSpace.Font = New System.Drawing.Font("Franklin Gothic Medium Cond", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblInitialSpace.Location = New System.Drawing.Point(291, 806)
+        Me.lblInitialSpace.Name = "lblInitialSpace"
+        Me.lblInitialSpace.Size = New System.Drawing.Size(74, 22)
+        Me.lblInitialSpace.TabIndex = 109
+        Me.lblInitialSpace.Text = "XX"
+        Me.lblInitialSpace.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'lblTargetSpace
+        '
+        Me.lblTargetSpace.BackColor = System.Drawing.Color.Tan
+        Me.lblTargetSpace.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.lblTargetSpace.Font = New System.Drawing.Font("Franklin Gothic Medium Cond", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblTargetSpace.Location = New System.Drawing.Point(384, 806)
+        Me.lblTargetSpace.Name = "lblTargetSpace"
+        Me.lblTargetSpace.Size = New System.Drawing.Size(74, 22)
+        Me.lblTargetSpace.TabIndex = 110
+        Me.lblTargetSpace.Text = "XX"
+        Me.lblTargetSpace.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'Label1
+        '
+        Me.Label1.BackColor = System.Drawing.Color.White
+        Me.Label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label1.Location = New System.Drawing.Point(0, 24)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(44, 20)
+        Me.Label1.TabIndex = 112
+        Me.Label1.Text = "X/Y"
+        Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'btnClear
+        '
+        Me.btnClear.BackColor = System.Drawing.Color.Tan
+        Me.btnClear.Font = New System.Drawing.Font("Gill Sans Ultra Bold", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnClear.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.btnClear.Location = New System.Drawing.Point(291, 831)
+        Me.btnClear.Name = "btnClear"
+        Me.btnClear.Size = New System.Drawing.Size(167, 38)
+        Me.btnClear.TabIndex = 113
+        Me.btnClear.Text = "Clear!"
+        Me.btnClear.UseVisualStyleBackColor = False
         '
         'picP2Turn
         '
@@ -1183,87 +1271,6 @@ Partial Class Checkers
         Me.picA8.TabIndex = 10
         Me.picA8.TabStop = False
         '
-        'btnMove
-        '
-        Me.btnMove.BackColor = System.Drawing.Color.Tan
-        Me.btnMove.Font = New System.Drawing.Font("Gill Sans Ultra Bold", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnMove.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.btnMove.Location = New System.Drawing.Point(291, 751)
-        Me.btnMove.Name = "btnMove"
-        Me.btnMove.Size = New System.Drawing.Size(167, 38)
-        Me.btnMove.TabIndex = 106
-        Me.btnMove.Text = "Move!"
-        Me.btnMove.UseVisualStyleBackColor = False
-        '
-        'lblFrom
-        '
-        Me.lblFrom.AutoSize = True
-        Me.lblFrom.Font = New System.Drawing.Font("Franklin Gothic Medium Cond", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFrom.Location = New System.Drawing.Point(287, 788)
-        Me.lblFrom.Name = "lblFrom"
-        Me.lblFrom.Size = New System.Drawing.Size(43, 21)
-        Me.lblFrom.TabIndex = 107
-        Me.lblFrom.Text = "From:"
-        Me.lblFrom.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'lblTo
-        '
-        Me.lblTo.AutoSize = True
-        Me.lblTo.Font = New System.Drawing.Font("Franklin Gothic Medium Cond", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTo.Location = New System.Drawing.Point(431, 788)
-        Me.lblTo.Name = "lblTo"
-        Me.lblTo.Size = New System.Drawing.Size(27, 21)
-        Me.lblTo.TabIndex = 108
-        Me.lblTo.Text = "To:"
-        Me.lblTo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'lblInitialSpace
-        '
-        Me.lblInitialSpace.BackColor = System.Drawing.Color.Tan
-        Me.lblInitialSpace.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.lblInitialSpace.Font = New System.Drawing.Font("Franklin Gothic Medium Cond", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblInitialSpace.Location = New System.Drawing.Point(291, 806)
-        Me.lblInitialSpace.Name = "lblInitialSpace"
-        Me.lblInitialSpace.Size = New System.Drawing.Size(74, 22)
-        Me.lblInitialSpace.TabIndex = 109
-        Me.lblInitialSpace.Text = "XX"
-        Me.lblInitialSpace.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'lblTargetSpace
-        '
-        Me.lblTargetSpace.BackColor = System.Drawing.Color.Tan
-        Me.lblTargetSpace.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.lblTargetSpace.Font = New System.Drawing.Font("Franklin Gothic Medium Cond", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTargetSpace.Location = New System.Drawing.Point(384, 806)
-        Me.lblTargetSpace.Name = "lblTargetSpace"
-        Me.lblTargetSpace.Size = New System.Drawing.Size(74, 22)
-        Me.lblTargetSpace.TabIndex = 110
-        Me.lblTargetSpace.Text = "XX"
-        Me.lblTargetSpace.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'Label1
-        '
-        Me.Label1.BackColor = System.Drawing.Color.White
-        Me.Label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label1.Location = New System.Drawing.Point(0, 24)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(44, 20)
-        Me.Label1.TabIndex = 112
-        Me.Label1.Text = "X/Y"
-        Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'btnClear
-        '
-        Me.btnClear.BackColor = System.Drawing.Color.Tan
-        Me.btnClear.Font = New System.Drawing.Font("Gill Sans Ultra Bold", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnClear.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.btnClear.Location = New System.Drawing.Point(291, 831)
-        Me.btnClear.Name = "btnClear"
-        Me.btnClear.Size = New System.Drawing.Size(167, 38)
-        Me.btnClear.TabIndex = 113
-        Me.btnClear.Text = "Clear!"
-        Me.btnClear.UseVisualStyleBackColor = False
-        '
         'Checkers
         '
         Me.AcceptButton = Me.btnMove
@@ -1552,4 +1559,5 @@ Partial Class Checkers
     Friend WithEvents lblTargetSpace As Label
     Friend WithEvents Label1 As Label
     Friend WithEvents btnClear As Button
+    Friend WithEvents mnuNew As ToolStripMenuItem
 End Class

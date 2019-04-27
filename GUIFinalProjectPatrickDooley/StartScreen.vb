@@ -27,9 +27,9 @@ Public Class StartScreen
         ElseIf txtPlayer1.Text = txtPlayer2.Text Then
             MsgBox(strErrorSameNames, , "Error")
         Else
-            Dim p1 As New Player(1, txtPlayer1.Text, 0)
-            Dim p2 As New Player(2, txtPlayer2.Text, 0)
-            Dim checkersForm As New Checkers(p1, p2)
+            Dim p1 As New Player(1, txtPlayer1.Text, 0, 12)
+            Dim p2 As New Player(2, txtPlayer2.Text, 0, 12)
+            Dim checkersForm As New Checkers(p1, p2, "new")
             Hide()
             checkersForm.ShowDialog()
         End If
