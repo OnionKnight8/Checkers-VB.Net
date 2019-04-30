@@ -37,7 +37,7 @@ Public Class Player
     Function getPiecesTaken() As Integer
         Return _intPiecesTaken
     End Function
-    Function setLocation(ByVal intPiecesTaken As Integer)
+    Function setPiecesTaken(ByVal intPiecesTaken As Integer)
         _intPiecesTaken = intPiecesTaken
         Return Nothing
     End Function
@@ -45,7 +45,7 @@ Public Class Player
     Function getPiecesRemaining() As Integer
         Return _intPiecesRemaining
     End Function
-    Function setPiecesremaining(ByVal piecesRemaining)
+    Function setPiecesRemaining(ByVal piecesRemaining As Integer)
         _intPiecesRemaining = piecesRemaining
         Return Nothing
     End Function

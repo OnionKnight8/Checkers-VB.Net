@@ -4,17 +4,17 @@
 
 Public Class GamePiece
 
-    Private _intPlayer As Integer
+    Private _player As Player
     Private _strPieceName As Integer
     Private _location As GameSpace
     Private _isAlive As Boolean
     Private _isKing As Boolean
     Private _image As Image
 
-    Sub New(ByVal intPlayer As Integer, ByVal strPieceName As Integer, ByVal location As GameSpace, ByVal isAlive As Boolean, ByVal isKing As Boolean, ByVal image As Image)
+    Sub New(ByVal player As Player, ByVal strPieceName As Integer, ByVal location As GameSpace, ByVal isAlive As Boolean, ByVal isKing As Boolean, ByVal image As Image)
         ' Constructor
 
-        _intPlayer = intPlayer
+        _player = player
         _strPieceName = strPieceName
         _location = location
         _isAlive = isAlive
@@ -23,11 +23,11 @@ Public Class GamePiece
     End Sub
 
     ' Gets and Sets
-    Function getPlayer() As String
-        Return _intPlayer
+    Function getPlayer() As Player
+        Return _player
     End Function
-    Function setPlayer(ByVal intPlayer As Integer)
-        _intPlayer = intPlayer
+    Function setPlayer(ByVal player As Player)
+        _player = player
         Return Nothing
     End Function
 

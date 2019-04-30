@@ -14,7 +14,10 @@ Public Class Checkers
     Private _selectedSpace As GameSpace
     Private _spaces(_intNumberOfSpaces) As GameSpace
     Private _pieces(_intNumberOfPieces) As GamePiece
+    Private _comboPiece As GamePiece
+    Private _capturedPiece As GamePiece
     Private _currentTurn As Player
+    Private _winCondition As String
     Protected _p1 As Player
     Protected _p2 As Player
     Private _newOrLoad As String
@@ -57,8 +60,8 @@ Public Class Checkers
         '   Sets spaces adjacencys.
         For i = 0 To _intNumberOfSpaces
 
-            If (Asc(_spaces(i).getX) + 1) <= Asc("H") Then
-                If ((_spaces(i).getY + 1) <= 8) Then
+            If Asc(_spaces(i).getX) < Asc("H") Then
+                If (_spaces(i).getY) < 8 Then
                     For j = 0 To _intNumberOfSpaces
                         If Asc(_spaces(j).getX) = (Asc(_spaces(i).getX) + 1) And _spaces(j).getY = (_spaces(i).getY + 1) Then
                             _spaces(i).setUpRight(_spaces(j))
@@ -67,7 +70,7 @@ Public Class Checkers
                     Next
                 End If
 
-                If ((_spaces(i).getY - 1) >= 1) Then
+                If (_spaces(i).getY) > 1 Then
                     For j = 0 To _intNumberOfSpaces
                         If Asc(_spaces(j).getX) = (Asc(_spaces(i).getX) + 1) And _spaces(j).getY = (_spaces(i).getY - 1) Then
                             _spaces(i).setDownRight(_spaces(j))
@@ -77,7 +80,7 @@ Public Class Checkers
                 End If
             End If
 
-            If (Asc(_spaces(i).getX) - 1) >= Asc("A") Then
+            If Asc(_spaces(i).getX) > Asc("A") Then
                 If ((_spaces(i).getY + 1) <= 8) Then
                     For j = 0 To _intNumberOfSpaces
                         If Asc(_spaces(j).getX) = (Asc(_spaces(i).getX) - 1) And _spaces(j).getY = (_spaces(i).getY + 1) Then
@@ -87,7 +90,7 @@ Public Class Checkers
                     Next
                 End If
 
-                If ((_spaces(i).getY - 1) >= 1) Then
+                If (_spaces(i).getY) > 1 Then
                     For j = 0 To _intNumberOfSpaces
                         If Asc(_spaces(j).getX) = (Asc(_spaces(i).getX) - 1) And _spaces(j).getY = (_spaces(i).getY - 1) Then
                             _spaces(i).setDownLeft(_spaces(j))
@@ -104,11 +107,11 @@ Public Class Checkers
 
         Dim newPiece As GamePiece
         For i = 0 To 11
-            newPiece = New GamePiece(1, i, Nothing, True, False, My.Resources.p1NormalPiece)
+            newPiece = New GamePiece(_p1, i, Nothing, True, False, My.Resources.p1NormalPiece)
             _pieces(i) = newPiece
         Next
         For i = 12 To _intNumberOfPieces
-            newPiece = New GamePiece(2, i, Nothing, True, False, My.Resources.p2NormalPiece)
+            newPiece = New GamePiece(_p2, i, Nothing, True, False, My.Resources.p2NormalPiece)
             _pieces(i) = newPiece
         Next
     End Sub
@@ -136,7 +139,7 @@ Public Class Checkers
 
         If _selectedSpace IsNot Nothing Then
             If _initialSpace Is Nothing And _selectedSpace.getPiece IsNot Nothing Then
-                If _currentTurn.getNumber = _selectedSpace.getPiece.getPlayer Then
+                If _currentTurn Is _selectedSpace.getPiece.getPlayer Then
                     _initialSpace = _selectedSpace
                     lblInitialSpace.Text = _initialSpace.getName
                     _initialSpace.getPicBox.BackColor = Color.Tan
@@ -161,6 +164,7 @@ Public Class Checkers
         _turnCount = 0
         _turnsWithoutCapture = 0
         _currentTurn = _p1
+        picP1Turn.Visible = True
         SetPieces()
 
         For i = 0 To _intNumberOfSpaces
@@ -226,102 +230,415 @@ Public Class Checkers
 
     End Sub
 
-    Private Sub gameOverCheck()
-        If _p1.getPiecesRemaining = 0 Then
-            '_winCondition = "p2Win"
-        ElseIf _p2.getPiecesRemaining = 0 Then
-            '_winCondition = "p1Win"
-        ElseIf _turnsWithoutCapture = 49 Then
-            '_winCondition = "draw"
-        End If
-    End Sub
+    Private Sub updateGame()
+        '   Used to set pieces, check if a player has won, and swwitch turns.
 
-    Private Function mustJump()
-        '   Check if player must jump.
-        Dim canJump As Boolean = False
+        If _capturedPiece IsNot Nothing Then
+            _capturedPiece.setAlive(False)
+            _capturedPiece.getPlayer.setPiecesRemaining((_capturedPiece.getPlayer.getPiecesRemaining - 1))
+            _capturedPiece.getLocation.getPicBox.Image = Nothing
+            _capturedPiece.getLocation.setPiece(Nothing)
+            _capturedPiece.setLocation(Nothing)
+            _capturedPiece = Nothing
+            If _currentTurn Is _p1 Then
+                _p1.setPiecesTaken((_p1.getPiecesTaken + 1))
+            ElseIf _currentTurn Is _p2 Then
+                _p2.setPiecesTaken((_p2.getPiecesTaken + 1))
+            End If
+        End If
 
         For i = 0 To _intNumberOfSpaces
-
-            If _spaces(i).getUpRight IsNot Nothing Then
-                If _spaces(i).getUpRight.getPiece IsNot Nothing Then
-                    If _spaces(i).getUpRight.getPiece.getPlayer <> _currentTurn.getNumber Then
-                        canJump = True
-                        Exit For
-                    End If
-                End If
+            If _spaces(i).getPiece IsNot Nothing Then
+                _spaces(i).getPiece().setLocation(_spaces(i))
+                _spaces(i).getPicBox.Image = _spaces(i).getPiece.getImage
+            Else
+                _spaces(i).getPicBox.Image = Nothing
             End If
+        Next
 
-            If _spaces(i).getUpLeft IsNot Nothing Then
-                If _spaces(i).getUpLeft.getPiece IsNot Nothing Then
-                    If _spaces(i).getUpLeft.getPiece.getPlayer <> _currentTurn.getNumber Then
-                        canJump = True
-                        Exit For
-                    End If
-                End If
-            End If
-
-            If _spaces(i).getDownRight IsNot Nothing Then
-                If _spaces(i).getDownRight.getPiece IsNot Nothing Then
-                    If _spaces(i).getDownRight.getPiece.getPlayer <> _currentTurn.getNumber Then
-                        canJump = True
-                        Exit For
-                    End If
-                End If
-            End If
-
-            If _spaces(i).getDownLeft IsNot Nothing Then
-                If _spaces(i).getDownLeft.getPiece IsNot Nothing Then
-                    If _spaces(i).getDownLeft.getPiece.getPlayer <> _currentTurn.getNumber Then
-                        canJump = True
-                        Exit For
+        For i = 0 To _intNumberOfSpaces
+            If _pieces(i).getAlive Then
+                If _pieces(i).getKing = False Then
+                    If _pieces(i).getPlayer Is _p1 Then
+                        If _pieces(i).getLocation.getY = 8 Then
+                            _pieces(i).setKing(True)
+                        End If
+                    ElseIf _pieces(i).getPlayer Is _p2 Then
+                        If _pieces(i).getLocation.getY = 1 Then
+                            _pieces(i).setKing(True)
+                        End If
                     End If
                 End If
             End If
         Next
+
+        If _p1.getPiecesRemaining = 0 Then
+            _winCondition = "p2Win"
+        ElseIf _p2.getPiecesRemaining = 0 Then
+            _winCondition = "p1Win"
+        ElseIf _turnsWithoutCapture = 49 & _p1.getPiecesRemaining > _p2.getPiecesRemaining Then
+            _winCondition = "p1WinStall"
+        ElseIf _turnsWithoutCapture = 49 & _p1.getPiecesRemaining < _p2.getPiecesRemaining Then
+            _winCondition = "p2WinStall"
+        ElseIf _turnsWithoutCapture = 49 & _p1.getPiecesRemaining = _p2.getPiecesRemaining Then
+            _winCondition = "draw"
+        End If
+
+        '   Change turns
+        If _comboPiece Is Nothing Then
+            If _currentTurn Is _p1 Then
+                _currentTurn = _p2
+                picP1Turn.Visible = False
+                picP2Turn.Visible = True
+            ElseIf _currentTurn Is _p2 Then
+                _currentTurn = _p1
+                picP2Turn.Visible = False
+                picP1Turn.Visible = True
+            End If
+        Else
+            If mustJump(_comboPiece) Then
+                _initialSpace.getPicBox.BackColor = _initialSpace.getColor
+                _initialSpace = _comboPiece.getLocation
+                _initialSpace.getPicBox.BackColor = Color.Tan
+                lblInitialSpace.Text = _initialSpace.getName
+                _targetSpace = Nothing
+                lblTargetSpace.Text = ""
+            Else
+                If _currentTurn Is _p1 Then
+                    _comboPiece = Nothing
+                    _currentTurn = _p2
+                    picP1Turn.Visible = False
+                    picP2Turn.Visible = True
+                ElseIf _currentTurn Is _p2 Then
+                    _comboPiece = Nothing
+                    _currentTurn = _p1
+                    picP2Turn.Visible = False
+                    picP1Turn.Visible = True
+                End If
+            End If
+        End If
+
+        lblP1PiecesTaken.Text = _p1.getPiecesTaken.ToString
+        lblP2PiecesTaken.Text = _p2.getPiecesTaken.ToString
+    End Sub
+
+    Private Function mustJump(ByVal piece As GamePiece)
+        '   Check if player must jump.
+        Dim canJump As Boolean = False
+
+        If piece.getKing Then
+            If piece.getLocation.getUpRight IsNot Nothing Then
+                If piece.getLocation.getUpRight.getPiece IsNot Nothing Then
+                    If piece.getLocation.getUpRight.getPiece.getPlayer IsNot _currentTurn Then
+                        If piece.getLocation.getUpRight.getUpRight IsNot Nothing Then
+                            If piece.getLocation.getUpRight.getUpRight.getPiece Is Nothing Then
+                                canJump = True
+                            End If
+                        End If
+                    End If
+                End If
+            End If
+            If piece.getLocation.getUpLeft IsNot Nothing Then
+                If piece.getLocation.getUpLeft.getPiece IsNot Nothing Then
+                    If piece.getLocation.getUpLeft.getPiece.getPlayer IsNot _currentTurn Then
+                        If piece.getLocation.getUpLeft.getUpLeft IsNot Nothing Then
+                            If piece.getLocation.getUpLeft.getUpLeft.getPiece Is Nothing Then
+                                canJump = True
+                            End If
+                        End If
+                    End If
+                End If
+            End If
+            If piece.getLocation.getDownRight IsNot Nothing Then
+                If piece.getLocation.getDownRight.getPiece IsNot Nothing Then
+                    If piece.getLocation.getDownRight.getPiece.getPlayer IsNot _currentTurn Then
+                        If piece.getLocation.getDownRight.getDownRight IsNot Nothing Then
+                            If piece.getLocation.getDownRight.getDownRight.getPiece Is Nothing Then
+                                canJump = True
+                            End If
+                        End If
+                    End If
+                End If
+            End If
+            If piece.getLocation.getDownLeft IsNot Nothing Then
+                If piece.getLocation.getDownLeft.getPiece IsNot Nothing Then
+                    If piece.getLocation.getDownLeft.getPiece.getPlayer IsNot _currentTurn Then
+                        If piece.getLocation.getDownLeft.getDownLeft IsNot Nothing Then
+                            If piece.getLocation.getDownLeft.getDownLeft.getPiece Is Nothing Then
+                                canJump = True
+                            End If
+                        End If
+                    End If
+                End If
+            End If
+
+        Else
+            If _currentTurn Is _p1 Then
+                If piece.getLocation.getUpRight IsNot Nothing Then
+                    If piece.getLocation.getUpRight.getPiece IsNot Nothing Then
+                        If piece.getLocation.getUpRight.getPiece.getPlayer IsNot _currentTurn Then
+                            If piece.getLocation.getUpRight.getUpRight IsNot Nothing Then
+                                If piece.getLocation.getUpRight.getUpRight.getPiece Is Nothing Then
+                                    canJump = True
+                                End If
+                            End If
+                        End If
+                    End If
+                End If
+                If piece.getLocation.getUpLeft IsNot Nothing Then
+                    If piece.getLocation.getUpLeft.getPiece IsNot Nothing Then
+                        If piece.getLocation.getUpLeft.getPiece.getPlayer IsNot _currentTurn Then
+                            If piece.getLocation.getUpLeft.getUpLeft IsNot Nothing Then
+                                If piece.getLocation.getUpLeft.getUpLeft.getPiece Is Nothing Then
+                                    canJump = True
+                                End If
+                            End If
+                        End If
+                    End If
+                End If
+
+            ElseIf _currentTurn Is _p2 Then
+                If piece.getLocation.getDownRight IsNot Nothing Then
+                    If piece.getLocation.getDownRight.getPiece IsNot Nothing Then
+                        If piece.getLocation.getDownRight.getPiece.getPlayer IsNot _currentTurn Then
+                            If piece.getLocation.getDownRight.getDownRight IsNot Nothing Then
+                                If piece.getLocation.getDownRight.getDownRight.getPiece Is Nothing Then
+                                    canJump = True
+                                End If
+                            End If
+                        End If
+                    End If
+                End If
+                If piece.getLocation.getDownLeft IsNot Nothing Then
+                    If piece.getLocation.getDownLeft.getPiece IsNot Nothing Then
+                        If piece.getLocation.getDownLeft.getPiece.getPlayer IsNot _currentTurn Then
+                            If piece.getLocation.getDownLeft.getDownLeft IsNot Nothing Then
+                                If piece.getLocation.getDownLeft.getDownLeft.getPiece Is Nothing Then
+                                    canJump = True
+                                End If
+                            End If
+                        End If
+                    End If
+                End If
+            End If
+        End If
+
         Return canJump
+    End Function
+
+    Private Function jumpCheck()
+        Dim mustJump As Boolean = False
+
+        If _initialSpace.getPiece.getKing() Then
+            If _initialSpace.getUpRight IsNot Nothing Then
+                If _initialSpace.getUpRight.getPiece IsNot Nothing Then
+                    If _initialSpace.getUpRight.getPiece.getPlayer IsNot _currentTurn Then
+                        If _initialSpace.getUpRight.getUpRight IsNot Nothing Then
+                            If _targetSpace Is _initialSpace.getUpRight.getUpRight Then
+                                mustJump = True
+                                _capturedPiece = _initialSpace.getUpRight.getPiece
+                            End If
+                        End If
+                    End If
+                End If
+            End If
+
+            If _initialSpace.getUpLeft IsNot Nothing Then
+                If _initialSpace.getUpLeft.getPiece IsNot Nothing Then
+                    If _initialSpace.getUpLeft.getPiece.getPlayer IsNot _currentTurn Then
+                        If _initialSpace.getUpLeft.getUpLeft IsNot Nothing Then
+                            If _targetSpace Is _initialSpace.getUpLeft.getUpLeft Then
+                                mustJump = True
+                                _capturedPiece = _initialSpace.getUpRight.getPiece
+                            End If
+                        End If
+                    End If
+                End If
+            End If
+            If _initialSpace.getDownRight IsNot Nothing Then
+                If _initialSpace.getDownRight.getPiece IsNot Nothing Then
+                    If _initialSpace.getDownRight.getPiece.getPlayer IsNot _currentTurn Then
+                        If _initialSpace.getDownRight.getDownRight IsNot Nothing Then
+                            If _targetSpace Is _initialSpace.getDownRight.getDownRight Then
+                                mustJump = True
+                                _capturedPiece = _initialSpace.getDownRight.getPiece
+                            End If
+                        End If
+                    End If
+                End If
+            End If
+
+            If _initialSpace.getDownLeft IsNot Nothing Then
+                If _initialSpace.getDownLeft.getPiece IsNot Nothing Then
+                    If _initialSpace.getDownLeft.getPiece.getPlayer IsNot _currentTurn Then
+                        If _initialSpace.getDownLeft.getDownLeft IsNot Nothing Then
+                            If _targetSpace Is _initialSpace.getDownLeft.getDownLeft Then
+                                mustJump = True
+                                _capturedPiece = _initialSpace.getDownLeft.getPiece
+                            End If
+                        End If
+                    End If
+                End If
+            End If
+
+        Else
+            If _currentTurn Is _p1 Then
+                If _initialSpace.getUpRight IsNot Nothing Then
+                    If _initialSpace.getUpRight.getPiece IsNot Nothing Then
+                        If _initialSpace.getUpRight.getPiece.getPlayer IsNot _currentTurn Then
+                            If _initialSpace.getUpRight.getUpRight IsNot Nothing Then
+                                If _targetSpace Is _initialSpace.getUpRight.getUpRight Then
+                                    mustJump = True
+                                    _capturedPiece = _initialSpace.getUpRight.getPiece
+                                End If
+                            End If
+                        End If
+                    End If
+                End If
+
+                If _initialSpace.getUpLeft IsNot Nothing Then
+                    If _initialSpace.getUpLeft.getPiece IsNot Nothing Then
+                        If _initialSpace.getUpLeft.getPiece.getPlayer IsNot _currentTurn Then
+                            If _initialSpace.getUpLeft.getUpLeft IsNot Nothing Then
+                                If _targetSpace Is _initialSpace.getUpLeft.getUpLeft Then
+                                    mustJump = True
+                                    _capturedPiece = _initialSpace.getUpLeft.getPiece
+                                End If
+                            End If
+                        End If
+                    End If
+                End If
+
+            ElseIf _currentTurn Is _p2 Then
+                If _initialSpace.getDownRight IsNot Nothing Then
+                    If _initialSpace.getDownRight.getPiece IsNot Nothing Then
+                        If _initialSpace.getDownRight.getPiece.getPlayer IsNot _currentTurn Then
+                            If _initialSpace.getDownRight.getDownRight IsNot Nothing Then
+                                If _targetSpace Is _initialSpace.getDownRight.getDownRight Then
+                                    mustJump = True
+                                    _capturedPiece = _initialSpace.getDownRight.getPiece
+                                End If
+                            End If
+                        End If
+                    End If
+                End If
+
+                If _initialSpace.getDownLeft IsNot Nothing Then
+                    If _initialSpace.getDownLeft.getPiece IsNot Nothing Then
+                        If _initialSpace.getDownLeft.getPiece.getPlayer IsNot _currentTurn Then
+                            If _initialSpace.getDownLeft.getDownLeft IsNot Nothing Then
+                                If _targetSpace Is _initialSpace.getDownLeft.getDownLeft Then
+                                    mustJump = True
+                                    _capturedPiece = _initialSpace.getDownLeft.getPiece
+                                End If
+                            End If
+                        End If
+                    End If
+                End If
+            End If
+        End If
+
+        Return mustJump
     End Function
 
 
     Private Sub btnMove_Click(sender As Object, e As EventArgs) Handles btnMove.Click
         '   When the move button is clicked, the application will check if the move
         '   the player is attempting to make is valid and then execute it.
+        Dim checkJump As Boolean = False
+
+        If _comboPiece Is Nothing Then
+            For i = 0 To _intNumberOfPieces
+                If _pieces(i).getAlive Then
+                    If _pieces(i).getPlayer Is _currentTurn Then
+                        If mustJump(_pieces(i)) Then
+                            checkJump = True
+                        End If
+                    End If
+                End If
+            Next
+        End If
 
         If _initialSpace Is Nothing Or _targetSpace Is Nothing Then
             MsgBox("Select a piece you want to move and where you want to move it!", , "Error")
         ElseIf _targetSpace.getPiece IsNot Nothing Then
             MsgBox("You cannot move a piece on top of another piece!", , "Error")
-        End If
 
-        '   Actually move piece. 
-        If mustJump() Then
-
+            '   Actually move piece. 
+        ElseIf checkJump Or _comboPiece IsNot Nothing Then
+            If jumpCheck() Then
+                _targetSpace.setPiece(_initialSpace.getPiece)
+                _comboPiece = _initialSpace.getPiece
+                _initialSpace.setPiece(Nothing)
+                updateGame()
+            Else
+                MsgBox("You must jump this turn!", , "Error")
+            End If
         Else
             If _initialSpace.getPiece.getKing() Then
                 If (_initialSpace.getUpRight Is _targetSpace) Or (_initialSpace.getUpLeft Is _targetSpace) Or (_initialSpace.getDownLeft Is _targetSpace) Or (_initialSpace.getDownRight Is _targetSpace) Then
-
+                    _targetSpace.setPiece(_initialSpace.getPiece)
+                    _initialSpace.setPiece(Nothing)
+                    updateGame()
                 Else
                     MsgBox("This piece can only move one space in any direction diagonally!", , "Error")
                 End If
             Else
-                If (_initialSpace.getUpRight Is _targetSpace) Or (_initialSpace.getUpLeft Is _targetSpace) Then
+                If _currentTurn Is _p1 Then
+                    If (_initialSpace.getUpRight Is _targetSpace) Or (_initialSpace.getUpLeft Is _targetSpace) Then
+                        _targetSpace.setPiece(_initialSpace.getPiece)
+                        _initialSpace.setPiece(Nothing)
+                        updateGame()
+                    Else
+                        MsgBox("This piece can only move diagonally right or diagonally left one space!", , "Error")
+                    End If
 
-                Else
-                    MsgBox("This piece can only move diagonally right or diagonally left one space!", , "Error")
+                ElseIf _currentTurn Is _p2 Then
+                    If (_initialSpace.getDownRight Is _targetSpace) Or (_initialSpace.getDownLeft Is _targetSpace) Then
+                        _targetSpace.setPiece(_initialSpace.getPiece)
+                        _initialSpace.setPiece(Nothing)
+                        updateGame()
+                    Else
+                        MsgBox("This piece can only move diagonally right or diagonally left one space!", , "Error")
+                    End If
                 End If
             End If
         End If
+
+        If _comboPiece Is Nothing Then
+            If _initialSpace IsNot Nothing Then
+                _initialSpace.getPicBox.BackColor = _initialSpace.getColor
+                lblInitialSpace.Text = ""
+            End If
+            _initialSpace = Nothing
+        End If
+        If _targetSpace IsNot Nothing Then
+            _targetSpace.getPicBox.BackColor = _targetSpace.getColor
+            lblTargetSpace.Text = ""
+        End If
+        _selectedSpace = Nothing
+        _targetSpace = Nothing
     End Sub
 
     Private Sub btnClear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
         '   The clear button resets the player's turn.
+        If _comboPiece IsNot Nothing Then
+            MsgBox("You must jump with selected piece.", , "Warning")
+        Else
+            If _initialSpace IsNot Nothing Then
+                lblInitialSpace.Text = ""
+                _initialSpace.getPicBox.BackColor = _initialSpace.getColor
+                _initialSpace = Nothing
+            End If
+        End If
 
-        lblInitialSpace.Text = ""
-        lblTargetSpace.Text = ""
-        _initialSpace.getPicBox.BackColor = _initialSpace.getColor
-        _targetSpace.getPicBox.BackColor = _targetSpace.getColor
+        If _targetSpace IsNot Nothing Then
+            lblTargetSpace.Text = ""
+            _targetSpace.getPicBox.BackColor = _targetSpace.getColor
+            _targetSpace = Nothing
+        End If
+
         _selectedSpace = Nothing
-        _initialSpace = Nothing
-        _targetSpace = Nothing
     End Sub
 
     Private Sub Checkers_Load(sender As Object, e As EventArgs) Handles MyBase.Load

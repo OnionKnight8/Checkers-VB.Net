@@ -88,7 +88,7 @@ Public Class GameSpace
     End Function
 
     Function getUpRight() As GameSpace
-        Return _adjUpLeft
+        Return _adjUpRight
     End Function
     Function setUpRight(ByVal adjUpRight As GameSpace)
         _adjUpRight = adjUpRight
