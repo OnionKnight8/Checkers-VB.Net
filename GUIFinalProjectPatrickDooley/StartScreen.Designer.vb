@@ -24,9 +24,8 @@ Partial Class StartScreen
     Private Sub InitializeComponent()
         Me.lblHeader = New System.Windows.Forms.Label()
         Me.lblInstruct = New System.Windows.Forms.Label()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.lblPlayer1 = New System.Windows.Forms.Label()
-        Me.Label1 = New System.Windows.Forms.Label()
+        Me.lblPlayer2 = New System.Windows.Forms.Label()
         Me.txtPlayer1 = New System.Windows.Forms.TextBox()
         Me.txtPlayer2 = New System.Windows.Forms.TextBox()
         Me.btnPlay = New System.Windows.Forms.Button()
@@ -39,8 +38,9 @@ Partial Class StartScreen
         Me.mnuInstruct = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuLog = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuAbout = New System.Windows.Forms.ToolStripMenuItem()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.MenuStrip1.SuspendLayout()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'lblHeader
@@ -63,41 +63,31 @@ Partial Class StartScreen
         Me.lblInstruct.TabIndex = 1
         Me.lblInstruct.Text = "Welcome! Who will be playing today?"
         '
-        'PictureBox1
-        '
-        Me.PictureBox1.Image = Global.GUIFinalProjectPatrickDooley.My.Resources.Resources.checkerboard
-        Me.PictureBox1.Location = New System.Drawing.Point(20, 118)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(414, 286)
-        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PictureBox1.TabIndex = 2
-        Me.PictureBox1.TabStop = False
-        '
         'lblPlayer1
         '
         Me.lblPlayer1.AutoSize = True
         Me.lblPlayer1.Font = New System.Drawing.Font("Franklin Gothic Medium Cond", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblPlayer1.Location = New System.Drawing.Point(118, 456)
+        Me.lblPlayer1.Location = New System.Drawing.Point(60, 456)
         Me.lblPlayer1.Name = "lblPlayer1"
-        Me.lblPlayer1.Size = New System.Drawing.Size(71, 24)
+        Me.lblPlayer1.Size = New System.Drawing.Size(153, 24)
         Me.lblPlayer1.TabIndex = 3
-        Me.lblPlayer1.Text = "Player 1:"
+        Me.lblPlayer1.Text = "Player 1 (The Crabs):"
         '
-        'Label1
+        'lblPlayer2
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Franklin Gothic Medium Cond", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(118, 493)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(71, 24)
-        Me.Label1.TabIndex = 4
-        Me.Label1.Text = "Player 2:"
+        Me.lblPlayer2.AutoSize = True
+        Me.lblPlayer2.Font = New System.Drawing.Font("Franklin Gothic Medium Cond", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblPlayer2.Location = New System.Drawing.Point(60, 493)
+        Me.lblPlayer2.Name = "lblPlayer2"
+        Me.lblPlayer2.Size = New System.Drawing.Size(161, 24)
+        Me.lblPlayer2.TabIndex = 4
+        Me.lblPlayer2.Text = "Player 2 (The Squids):"
         '
         'txtPlayer1
         '
         Me.txtPlayer1.BackColor = System.Drawing.Color.Tan
         Me.txtPlayer1.Font = New System.Drawing.Font("Franklin Gothic Medium Cond", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtPlayer1.Location = New System.Drawing.Point(195, 453)
+        Me.txtPlayer1.Location = New System.Drawing.Point(253, 453)
         Me.txtPlayer1.Name = "txtPlayer1"
         Me.txtPlayer1.Size = New System.Drawing.Size(142, 29)
         Me.txtPlayer1.TabIndex = 5
@@ -106,7 +96,7 @@ Partial Class StartScreen
         '
         Me.txtPlayer2.BackColor = System.Drawing.Color.Tan
         Me.txtPlayer2.Font = New System.Drawing.Font("Franklin Gothic Medium Cond", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtPlayer2.Location = New System.Drawing.Point(195, 490)
+        Me.txtPlayer2.Location = New System.Drawing.Point(253, 490)
         Me.txtPlayer2.Name = "txtPlayer2"
         Me.txtPlayer2.Size = New System.Drawing.Size(142, 29)
         Me.txtPlayer2.TabIndex = 6
@@ -181,6 +171,16 @@ Partial Class StartScreen
         Me.mnuAbout.Size = New System.Drawing.Size(149, 22)
         Me.mnuAbout.Text = "About/Credits"
         '
+        'PictureBox1
+        '
+        Me.PictureBox1.Image = Global.GUIFinalProjectPatrickDooley.My.Resources.Resources.checkerboard
+        Me.PictureBox1.Location = New System.Drawing.Point(20, 118)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(414, 286)
+        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PictureBox1.TabIndex = 2
+        Me.PictureBox1.TabStop = False
+        '
         'StartScreen
         '
         Me.AcceptButton = Me.btnPlay
@@ -191,7 +191,7 @@ Partial Class StartScreen
         Me.Controls.Add(Me.btnPlay)
         Me.Controls.Add(Me.txtPlayer2)
         Me.Controls.Add(Me.txtPlayer1)
-        Me.Controls.Add(Me.Label1)
+        Me.Controls.Add(Me.lblPlayer2)
         Me.Controls.Add(Me.lblPlayer1)
         Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.lblInstruct)
@@ -202,9 +202,9 @@ Partial Class StartScreen
         Me.MaximizeBox = False
         Me.Name = "StartScreen"
         Me.Text = "Player Select"
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -214,7 +214,7 @@ Partial Class StartScreen
     Friend WithEvents lblInstruct As Label
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents lblPlayer1 As Label
-    Friend WithEvents Label1 As Label
+    Friend WithEvents lblPlayer2 As Label
     Friend WithEvents txtPlayer1 As TextBox
     Friend WithEvents txtPlayer2 As TextBox
     Friend WithEvents btnPlay As Button

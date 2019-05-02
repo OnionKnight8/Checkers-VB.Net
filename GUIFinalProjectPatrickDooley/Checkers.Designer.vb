@@ -22,7 +22,6 @@ Partial Class Checkers
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Checkers))
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuNew = New System.Windows.Forms.ToolStripMenuItem()
@@ -442,7 +441,7 @@ Partial Class Checkers
         '
         'lblPlayer1Name
         '
-        Me.lblPlayer1Name.BackColor = System.Drawing.Color.White
+        Me.lblPlayer1Name.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(242, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.lblPlayer1Name.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lblPlayer1Name.Font = New System.Drawing.Font("Franklin Gothic Medium Cond", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblPlayer1Name.Location = New System.Drawing.Point(14, 774)
@@ -459,7 +458,7 @@ Partial Class Checkers
         Me.lblPlayer1.Name = "lblPlayer1"
         Me.lblPlayer1.Size = New System.Drawing.Size(61, 23)
         Me.lblPlayer1.TabIndex = 96
-        Me.lblPlayer1.Text = "Player 1:"
+        Me.lblPlayer1.Text = "Crabs:"
         Me.lblPlayer1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'lblPieces1
@@ -474,7 +473,7 @@ Partial Class Checkers
         '
         'lblP1PiecesTaken
         '
-        Me.lblP1PiecesTaken.BackColor = System.Drawing.Color.White
+        Me.lblP1PiecesTaken.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(242, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.lblP1PiecesTaken.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lblP1PiecesTaken.Font = New System.Drawing.Font("Franklin Gothic Medium Cond", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblP1PiecesTaken.Location = New System.Drawing.Point(45, 829)
@@ -486,10 +485,10 @@ Partial Class Checkers
         '
         'lblPlayer2Name
         '
-        Me.lblPlayer2Name.BackColor = System.Drawing.Color.Black
+        Me.lblPlayer2Name.BackColor = System.Drawing.Color.FromArgb(CType(CType(163, Byte), Integer), CType(CType(73, Byte), Integer), CType(CType(164, Byte), Integer))
         Me.lblPlayer2Name.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lblPlayer2Name.Font = New System.Drawing.Font("Franklin Gothic Medium Cond", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblPlayer2Name.ForeColor = System.Drawing.SystemColors.ControlLight
+        Me.lblPlayer2Name.ForeColor = System.Drawing.SystemColors.ControlText
         Me.lblPlayer2Name.Location = New System.Drawing.Point(559, 774)
         Me.lblPlayer2Name.Name = "lblPlayer2Name"
         Me.lblPlayer2Name.Size = New System.Drawing.Size(176, 32)
@@ -500,11 +499,11 @@ Partial Class Checkers
         'lblPlayer2
         '
         Me.lblPlayer2.Font = New System.Drawing.Font("Franklin Gothic Medium Cond", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblPlayer2.Location = New System.Drawing.Point(617, 751)
+        Me.lblPlayer2.Location = New System.Drawing.Point(604, 751)
         Me.lblPlayer2.Name = "lblPlayer2"
-        Me.lblPlayer2.Size = New System.Drawing.Size(61, 23)
+        Me.lblPlayer2.Size = New System.Drawing.Size(87, 23)
         Me.lblPlayer2.TabIndex = 101
-        Me.lblPlayer2.Text = "Player 2:"
+        Me.lblPlayer2.Text = "Squids:"
         Me.lblPlayer2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'lblPieces2
@@ -519,10 +518,10 @@ Partial Class Checkers
         '
         'lblP2PiecesTaken
         '
-        Me.lblP2PiecesTaken.BackColor = System.Drawing.Color.Black
+        Me.lblP2PiecesTaken.BackColor = System.Drawing.Color.FromArgb(CType(CType(163, Byte), Integer), CType(CType(73, Byte), Integer), CType(CType(164, Byte), Integer))
         Me.lblP2PiecesTaken.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lblP2PiecesTaken.Font = New System.Drawing.Font("Franklin Gothic Medium Cond", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblP2PiecesTaken.ForeColor = System.Drawing.SystemColors.ControlLight
+        Me.lblP2PiecesTaken.ForeColor = System.Drawing.SystemColors.ControlText
         Me.lblP2PiecesTaken.Location = New System.Drawing.Point(590, 829)
         Me.lblP2PiecesTaken.Name = "lblP2PiecesTaken"
         Me.lblP2PiecesTaken.Size = New System.Drawing.Size(114, 32)
@@ -613,7 +612,7 @@ Partial Class Checkers
         '
         'picP2Turn
         '
-        Me.picP2Turn.Image = CType(resources.GetObject("picP2Turn.Image"), System.Drawing.Image)
+        Me.picP2Turn.Image = Global.GUIFinalProjectPatrickDooley.My.Resources.Resources.player2turn
         Me.picP2Turn.Location = New System.Drawing.Point(498, 754)
         Me.picP2Turn.Name = "picP2Turn"
         Me.picP2Turn.Size = New System.Drawing.Size(55, 55)
@@ -623,7 +622,7 @@ Partial Class Checkers
         '
         'picP1Turn
         '
-        Me.picP1Turn.Image = CType(resources.GetObject("picP1Turn.Image"), System.Drawing.Image)
+        Me.picP1Turn.Image = Global.GUIFinalProjectPatrickDooley.My.Resources.Resources.player1turn
         Me.picP1Turn.Location = New System.Drawing.Point(196, 754)
         Me.picP1Turn.Name = "picP1Turn"
         Me.picP1Turn.Size = New System.Drawing.Size(55, 55)

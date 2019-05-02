@@ -249,26 +249,33 @@ Public Class Checkers
 
         For i = 0 To _intNumberOfSpaces
             If _spaces(i).getPiece IsNot Nothing Then
-                _spaces(i).getPiece().setLocation(_spaces(i))
-                _spaces(i).getPicBox.Image = _spaces(i).getPiece.getImage
-            Else
-                _spaces(i).getPicBox.Image = Nothing
+                _spaces(i).getPiece.setLocation(_spaces(i))
             End If
         Next
 
-        For i = 0 To _intNumberOfSpaces
+        For i = 0 To _intNumberOfPieces
             If _pieces(i).getAlive Then
                 If _pieces(i).getKing = False Then
                     If _pieces(i).getPlayer Is _p1 Then
                         If _pieces(i).getLocation.getY = 8 Then
                             _pieces(i).setKing(True)
+                            _pieces(i).setImage(My.Resources.p1KingPiece)
                         End If
                     ElseIf _pieces(i).getPlayer Is _p2 Then
                         If _pieces(i).getLocation.getY = 1 Then
                             _pieces(i).setKing(True)
+                            _pieces(i).setImage(My.Resources.p2KingPiece)
                         End If
                     End If
                 End If
+            End If
+        Next
+
+        For i = 0 To _intNumberOfSpaces
+            If _spaces(i).getPiece IsNot Nothing Then
+                _spaces(i).getPicBox.Image = _spaces(i).getPiece.getImage
+            Else
+                _spaces(i).getPicBox.Image = Nothing
             End If
         Next
 
@@ -282,6 +289,10 @@ Public Class Checkers
             _winCondition = "p2WinStall"
         ElseIf _turnsWithoutCapture = 49 & _p1.getPiecesRemaining = _p2.getPiecesRemaining Then
             _winCondition = "draw"
+        End If
+
+        If _winCondition IsNot Nothing Then
+
         End If
 
         '   Change turns
@@ -643,10 +654,6 @@ Public Class Checkers
 
     Private Sub Checkers_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         '   Sets up the board on load, distributes pieces and clears text fields.
-        lblPlayer1Name.Text = _p1.getName
-        lblPlayer2Name.Text = _p2.getName
-        lblP1PiecesTaken.Text = _p1.getPiecesTaken.ToString
-        lblP2PiecesTaken.Text = _p2.getPiecesTaken.ToString
         lblInitialSpace.Text = ""
         lblTargetSpace.Text = ""
         Select Case _newOrLoad
@@ -655,6 +662,10 @@ Public Class Checkers
             Case "load"
                 loadGame()
         End Select
+        lblPlayer1Name.Text = _p1.getName
+        lblPlayer2Name.Text = _p2.getName
+        lblP1PiecesTaken.Text = _p1.getPiecesTaken.ToString
+        lblP2PiecesTaken.Text = _p2.getPiecesTaken.ToString
     End Sub
 
     Private Sub mnuLoad_Click(sender As Object, e As EventArgs) Handles mnuLoad.Click

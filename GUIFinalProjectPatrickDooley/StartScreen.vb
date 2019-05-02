@@ -30,8 +30,8 @@ Public Class StartScreen
             Dim p1 As New Player(1, txtPlayer1.Text, 0, 12)
             Dim p2 As New Player(2, txtPlayer2.Text, 0, 12)
             Dim checkersForm As New Checkers(p1, p2, "new")
-            Hide()
-            checkersForm.ShowDialog()
+            checkersForm.Show()
+            Me.Close()
         End If
     End Sub
 
