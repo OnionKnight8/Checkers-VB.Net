@@ -69,5 +69,8 @@ Public Class StartScreen
 
     Private Sub mnuLog_Click(sender As Object, e As EventArgs) Handles mnuLog.Click
         'Opens GameLog form.
+        Dim gameLog As New GameLog
+        gameLog.ShowDialog()
+
     End Sub
 End Class

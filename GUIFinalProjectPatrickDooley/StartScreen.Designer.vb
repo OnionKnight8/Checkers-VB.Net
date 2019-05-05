@@ -173,7 +173,7 @@ Partial Class StartScreen
         '
         'PictureBox1
         '
-        Me.PictureBox1.Image = Global.GUIFinalProjectPatrickDooley.My.Resources.Resources.checkerboard
+        Me.PictureBox1.Image = Global.GUIFinalProjectPatrickDooley.My.Resources.Resources.checkers
         Me.PictureBox1.Location = New System.Drawing.Point(20, 118)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(414, 286)

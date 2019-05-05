@@ -117,25 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="lblInstructions.Text" xml:space="preserve">
-    <value>To control the application, simply select the space you want to move from
-(you may only select a space with one of your pieces on it) and then select a 
-space that you would like to move to. To confirm your move, select the 
-"Move!" button. If you change your mind, you may select the "Clear!"
-button to start over. Once "Move!" is selected, however, your turn is over
-and the other player may begin theirs.
-
-Checkers is a simple game where you move your pieces digonally left
-or diagonally right across the board.  If one of your pieces makes it
-all the way across the board, it becomes a king and can move in any
-direction. If you are adjacent to an opponent's piece, you may jump that 
-piece with yours if the space behind the opponent is empty. 
-Jumping a piece removes it from play. You win by capturing all 
-of your opponent's pieces. The game will also automatically end if 50 turns
-go by without any captures, in which the winner will be the player with the
-most pieces. If both players have the same amount of pieces, a draw occurs.
-For more detailed instructions, visit
-http://www.darkfish.com/checkers/rules.html
-</value>
-  </data>
 </root>

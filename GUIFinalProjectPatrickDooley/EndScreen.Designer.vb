@@ -24,16 +24,16 @@ Partial Class EndScreen
     Private Sub InitializeComponent()
         Me.lblHeader = New System.Windows.Forms.Label()
         Me.lblWinner = New System.Windows.Forms.Label()
-        Me.PicPawn1 = New System.Windows.Forms.PictureBox()
-        Me.PicPawn3 = New System.Windows.Forms.PictureBox()
-        Me.PicPawn2 = New System.Windows.Forms.PictureBox()
-        Me.PicKing = New System.Windows.Forms.PictureBox()
         Me.lblRematch = New System.Windows.Forms.Label()
         Me.btnYes = New System.Windows.Forms.Button()
         Me.btnNo = New System.Windows.Forms.Button()
         Me.btnLog = New System.Windows.Forms.Button()
-        Me.Button2 = New System.Windows.Forms.Button()
-        Me.Label1 = New System.Windows.Forms.Label()
+        Me.btnCredits = New System.Windows.Forms.Button()
+        Me.lblDescription = New System.Windows.Forms.Label()
+        Me.PicPawn1 = New System.Windows.Forms.PictureBox()
+        Me.PicPawn3 = New System.Windows.Forms.PictureBox()
+        Me.PicPawn2 = New System.Windows.Forms.PictureBox()
+        Me.PicKing = New System.Windows.Forms.PictureBox()
         CType(Me.PicPawn1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicPawn3, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicPawn2, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -59,6 +59,71 @@ Partial Class EndScreen
         Me.lblWinner.TabIndex = 1
         Me.lblWinner.Text = "XXXXXX"
         Me.lblWinner.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'lblRematch
+        '
+        Me.lblRematch.AutoSize = True
+        Me.lblRematch.Font = New System.Drawing.Font("Franklin Gothic Medium Cond", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblRematch.Location = New System.Drawing.Point(97, 494)
+        Me.lblRematch.Name = "lblRematch"
+        Me.lblRematch.Size = New System.Drawing.Size(260, 30)
+        Me.lblRematch.TabIndex = 9
+        Me.lblRematch.Text = "Don't You Want a Rematch?"
+        '
+        'btnYes
+        '
+        Me.btnYes.BackColor = System.Drawing.Color.Tan
+        Me.btnYes.Font = New System.Drawing.Font("Gill Sans Ultra Bold", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnYes.Location = New System.Drawing.Point(98, 538)
+        Me.btnYes.Name = "btnYes"
+        Me.btnYes.Size = New System.Drawing.Size(129, 43)
+        Me.btnYes.TabIndex = 10
+        Me.btnYes.Text = "Runback!"
+        Me.btnYes.UseVisualStyleBackColor = False
+        '
+        'btnNo
+        '
+        Me.btnNo.BackColor = System.Drawing.Color.Tan
+        Me.btnNo.DialogResult = System.Windows.Forms.DialogResult.Cancel
+        Me.btnNo.Font = New System.Drawing.Font("Gill Sans Ultra Bold", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnNo.Location = New System.Drawing.Point(233, 538)
+        Me.btnNo.Name = "btnNo"
+        Me.btnNo.Size = New System.Drawing.Size(129, 43)
+        Me.btnNo.TabIndex = 11
+        Me.btnNo.Text = "Nah, I'm Good"
+        Me.btnNo.UseVisualStyleBackColor = False
+        '
+        'btnLog
+        '
+        Me.btnLog.BackColor = System.Drawing.Color.Tan
+        Me.btnLog.Font = New System.Drawing.Font("Gill Sans Ultra Bold", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnLog.Location = New System.Drawing.Point(98, 438)
+        Me.btnLog.Name = "btnLog"
+        Me.btnLog.Size = New System.Drawing.Size(129, 43)
+        Me.btnLog.TabIndex = 12
+        Me.btnLog.Text = "Game Log"
+        Me.btnLog.UseVisualStyleBackColor = False
+        '
+        'btnCredits
+        '
+        Me.btnCredits.BackColor = System.Drawing.Color.Tan
+        Me.btnCredits.Font = New System.Drawing.Font("Gill Sans Ultra Bold", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnCredits.Location = New System.Drawing.Point(233, 438)
+        Me.btnCredits.Name = "btnCredits"
+        Me.btnCredits.Size = New System.Drawing.Size(129, 43)
+        Me.btnCredits.TabIndex = 13
+        Me.btnCredits.Text = "Credits"
+        Me.btnCredits.UseVisualStyleBackColor = False
+        '
+        'lblDescription
+        '
+        Me.lblDescription.Font = New System.Drawing.Font("Franklin Gothic Medium Cond", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblDescription.Location = New System.Drawing.Point(17, 354)
+        Me.lblDescription.Name = "lblDescription"
+        Me.lblDescription.Size = New System.Drawing.Size(426, 81)
+        Me.lblDescription.TabIndex = 14
+        Me.lblDescription.Text = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        Me.lblDescription.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'PicPawn1
         '
@@ -92,78 +157,16 @@ Partial Class EndScreen
         Me.PicKing.TabIndex = 2
         Me.PicKing.TabStop = False
         '
-        'lblRematch
-        '
-        Me.lblRematch.AutoSize = True
-        Me.lblRematch.Font = New System.Drawing.Font("Franklin Gothic Medium Cond", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblRematch.Location = New System.Drawing.Point(97, 494)
-        Me.lblRematch.Name = "lblRematch"
-        Me.lblRematch.Size = New System.Drawing.Size(260, 30)
-        Me.lblRematch.TabIndex = 9
-        Me.lblRematch.Text = "Don't You Want a Rematch?"
-        '
-        'btnYes
-        '
-        Me.btnYes.BackColor = System.Drawing.Color.Tan
-        Me.btnYes.Font = New System.Drawing.Font("Gill Sans Ultra Bold", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnYes.Location = New System.Drawing.Point(102, 538)
-        Me.btnYes.Name = "btnYes"
-        Me.btnYes.Size = New System.Drawing.Size(129, 43)
-        Me.btnYes.TabIndex = 10
-        Me.btnYes.Text = "Runback!"
-        Me.btnYes.UseVisualStyleBackColor = False
-        '
-        'btnNo
-        '
-        Me.btnNo.BackColor = System.Drawing.Color.Tan
-        Me.btnNo.Font = New System.Drawing.Font("Gill Sans Ultra Bold", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnNo.Location = New System.Drawing.Point(228, 538)
-        Me.btnNo.Name = "btnNo"
-        Me.btnNo.Size = New System.Drawing.Size(129, 43)
-        Me.btnNo.TabIndex = 11
-        Me.btnNo.Text = "Nah, I'm Good"
-        Me.btnNo.UseVisualStyleBackColor = False
-        '
-        'btnLog
-        '
-        Me.btnLog.BackColor = System.Drawing.Color.Tan
-        Me.btnLog.Font = New System.Drawing.Font("Gill Sans Ultra Bold", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnLog.Location = New System.Drawing.Point(102, 438)
-        Me.btnLog.Name = "btnLog"
-        Me.btnLog.Size = New System.Drawing.Size(129, 43)
-        Me.btnLog.TabIndex = 12
-        Me.btnLog.Text = "Game Log"
-        Me.btnLog.UseVisualStyleBackColor = False
-        '
-        'Button2
-        '
-        Me.Button2.BackColor = System.Drawing.Color.Tan
-        Me.Button2.Font = New System.Drawing.Font("Gill Sans Ultra Bold", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button2.Location = New System.Drawing.Point(228, 438)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(129, 43)
-        Me.Button2.TabIndex = 13
-        Me.Button2.Text = "Credits"
-        Me.Button2.UseVisualStyleBackColor = False
-        '
-        'Label1
-        '
-        Me.Label1.Font = New System.Drawing.Font("Franklin Gothic Medium Cond", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(17, 354)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(426, 81)
-        Me.Label1.TabIndex = 14
-        Me.Label1.Text = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-        Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
         'EndScreen
         '
+        Me.AcceptButton = Me.btnYes
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Bisque
+        Me.CancelButton = Me.btnNo
         Me.ClientSize = New System.Drawing.Size(455, 593)
-        Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.Button2)
+        Me.Controls.Add(Me.lblDescription)
+        Me.Controls.Add(Me.btnCredits)
         Me.Controls.Add(Me.btnLog)
         Me.Controls.Add(Me.btnNo)
         Me.Controls.Add(Me.btnYes)
@@ -174,6 +177,7 @@ Partial Class EndScreen
         Me.Controls.Add(Me.PicKing)
         Me.Controls.Add(Me.lblWinner)
         Me.Controls.Add(Me.lblHeader)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Name = "EndScreen"
         Me.Text = "EndScreen"
         CType(Me.PicPawn1, System.ComponentModel.ISupportInitialize).EndInit()
@@ -195,6 +199,6 @@ Partial Class EndScreen
     Friend WithEvents btnYes As Button
     Friend WithEvents btnNo As Button
     Friend WithEvents btnLog As Button
-    Friend WithEvents Button2 As Button
-    Friend WithEvents Label1 As Label
+    Friend WithEvents btnCredits As Button
+    Friend WithEvents lblDescription As Label
 End Class

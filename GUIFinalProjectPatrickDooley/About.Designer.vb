@@ -22,6 +22,7 @@ Partial Class About
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(About))
         Me.btnOk = New System.Windows.Forms.Button()
         Me.lblAbout = New System.Windows.Forms.Label()
         Me.lblHeader = New System.Windows.Forms.Label()
@@ -49,7 +50,8 @@ Partial Class About
         Me.lblAbout.Name = "lblAbout"
         Me.lblAbout.Size = New System.Drawing.Size(451, 179)
         Me.lblAbout.TabIndex = 5
-        Me.lblAbout.Text = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        Me.lblAbout.Text = "Author: Patrick Dooley" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Made for Dr. Alfredo Perez's Graphic User Interface (CP" &
+    "SC3118)" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "class at Columbus State University."
         '
         'lblHeader
         '
@@ -80,7 +82,7 @@ Partial Class About
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(451, 179)
         Me.Label1.TabIndex = 8
-        Me.Label1.Text = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        Me.Label1.Text = resources.GetString("Label1.Text")
         '
         'About
         '

@@ -7,7 +7,6 @@
 Public Class Checkers
     Protected _intNumberOfSpaces = 63
     Protected _intNumberOfPieces = 23
-    Private _turnCount As Integer
     Private _turnsWithoutCapture As Integer
     Private _initialSpace As GameSpace
     Private _targetSpace As GameSpace
@@ -161,7 +160,6 @@ Public Class Checkers
         lblTargetSpace.Text = ""
         lblP1PiecesTaken.Text = _p1.getPiecesTaken.ToString
         lblP2PiecesTaken.Text = _p2.getPiecesTaken.ToString
-        _turnCount = 0
         _turnsWithoutCapture = 0
         _currentTurn = _p1
         picP1Turn.Visible = True
@@ -240,10 +238,24 @@ Public Class Checkers
             _capturedPiece.getLocation.setPiece(Nothing)
             _capturedPiece.setLocation(Nothing)
             _capturedPiece = Nothing
+            _turnsWithoutCapture = 0
             If _currentTurn Is _p1 Then
                 _p1.setPiecesTaken((_p1.getPiecesTaken + 1))
             ElseIf _currentTurn Is _p2 Then
                 _p2.setPiecesTaken((_p2.getPiecesTaken + 1))
+            End If
+        Else
+            _turnsWithoutCapture += 1
+            If _turnsWithoutCapture = 25 Then
+                MsgBox("25 turns have gone by without a capture, game will end at 50!", , "Warning!")
+            ElseIf _turnsWithoutCapture = 40 Then
+                MsgBox("10 turns remaining! Capture a piece to reset timer!", , "Warning!")
+            ElseIf _turnsWithoutCapture = 47 Then
+                MsgBox("3 turns remaining!", , "Warning!")
+            ElseIf _turnsWithoutCapture = 48 Then
+                MsgBox("2 turns remaining!", , "Warning!")
+            ElseIf _turnsWithoutCapture = 49 Then
+                MsgBox("1 turn remaining!", , "Warning!")
             End If
         End If
 
@@ -283,16 +295,18 @@ Public Class Checkers
             _winCondition = "p2Win"
         ElseIf _p2.getPiecesRemaining = 0 Then
             _winCondition = "p1Win"
-        ElseIf _turnsWithoutCapture = 49 & _p1.getPiecesRemaining > _p2.getPiecesRemaining Then
+        ElseIf _turnsWithoutCapture = 50 & _p1.getPiecesRemaining > _p2.getPiecesRemaining Then
             _winCondition = "p1WinStall"
-        ElseIf _turnsWithoutCapture = 49 & _p1.getPiecesRemaining < _p2.getPiecesRemaining Then
+        ElseIf _turnsWithoutCapture = 50 & _p2.getPiecesRemaining > _p1.getPiecesRemaining Then
             _winCondition = "p2WinStall"
-        ElseIf _turnsWithoutCapture = 49 & _p1.getPiecesRemaining = _p2.getPiecesRemaining Then
+        ElseIf _turnsWithoutCapture = 50 & _p1.getPiecesRemaining = _p2.getPiecesRemaining Then
             _winCondition = "draw"
         End If
 
         If _winCondition IsNot Nothing Then
-
+            Dim EndScreen As New EndScreen(_winCondition, _p1, _p2)
+            EndScreen.Show()
+            Me.Close()
         End If
 
         '   Change turns
@@ -460,7 +474,7 @@ Public Class Checkers
                         If _initialSpace.getUpLeft.getUpLeft IsNot Nothing Then
                             If _targetSpace Is _initialSpace.getUpLeft.getUpLeft Then
                                 mustJump = True
-                                _capturedPiece = _initialSpace.getUpRight.getPiece
+                                _capturedPiece = _initialSpace.getUpLeft.getPiece
                             End If
                         End If
                     End If
@@ -670,7 +684,13 @@ Public Class Checkers
 
     Private Sub mnuLoad_Click(sender As Object, e As EventArgs) Handles mnuLoad.Click
         '   Allows user to select game to load, and then loads it.
-
+        Dim query = MsgBox("Are you sure that you want to exit? (Unsaved progress will be lost!)", vbYesNo, "Caution!")
+        Select Case query
+            Case vbYes
+                Dim newCheckers As New Checkers(_p1, _p2, "load")
+                newCheckers.Show()
+                Me.Close()
+        End Select
     End Sub
 
     Private Sub mnuNew_Click(sender As Object, e As EventArgs) Handles mnuNew.Click
@@ -678,7 +698,9 @@ Public Class Checkers
         Dim query = MsgBox("Are you sure that you want to make a new game? (Unsaved progress will be lost!)", vbYesNo, "Caution!")
         Select Case query
             Case vbYes
-                newGame()
+                Dim newCheckers As New Checkers(_p1, _p2, "new")
+                newCheckers.Show()
+                Me.Close()
         End Select
     End Sub
 
@@ -707,5 +729,8 @@ Public Class Checkers
 
     Private Sub mnuLog_Click(sender As Object, e As EventArgs) Handles mnuLog.Click
         'Opens GameLog form.
+        Dim gameLog As New GameLog
+        gameLog.ShowDialog()
+
     End Sub
 End Class

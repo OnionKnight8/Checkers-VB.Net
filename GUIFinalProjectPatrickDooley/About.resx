@@ -117,4 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Label1.Text" xml:space="preserve">
+    <value>All pieces made by Chris O'Brooks (Twitter: @chrisobrooksart).
+
+"Checkerboard" image from Shutterstock, Video Clip 2917915.
+
+"Question Mark" image is an image of a Unicode character,
+from FileFormat.info.
+
+</value>
+  </data>
 </root>
