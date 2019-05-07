@@ -17,8 +17,8 @@ Public Class Checkers
     Private _capturedPiece As GamePiece
     Private _currentTurn As Player
     Private _winCondition As String
-    Protected _p1 As Player
-    Protected _p2 As Player
+    Private _p1 As Player
+    Private _p2 As Player
     Private _newOrLoad As String
 
     Sub New(ByVal p1 As Player, ByVal p2 As Player, ByVal newOrLoad As String)
@@ -158,12 +158,9 @@ Public Class Checkers
 
         lblInitialSpace.Text = ""
         lblTargetSpace.Text = ""
-        lblP1PiecesTaken.Text = _p1.getPiecesTaken.ToString
-        lblP2PiecesTaken.Text = _p2.getPiecesTaken.ToString
         _turnsWithoutCapture = 0
         _currentTurn = _p1
         picP1Turn.Visible = True
-        SetPieces()
 
         For i = 0 To _intNumberOfSpaces
             If (_spaces(i).getName = "A1") Then
@@ -223,9 +220,60 @@ Public Class Checkers
         Next
     End Sub
 
-    Private Sub loadGame()
+    Private Sub loadGame(ByVal startOrGame As String)
         ' Loads a saved game.
+        Dim loadGame As New LoadGame(_spaces)
+        If loadGame.getSuccess() Then
+            _initialSpace = Nothing
+            lblInitialSpace.Text = ""
+            lblTargetSpace.Text = ""
+            _targetSpace = Nothing
+            _p1 = loadGame.getP1
+            _p2 = loadGame.getP2
+            _currentTurn = loadGame.getCurrentTurn
+            If _currentTurn Is _p1 Then
+                picP1Turn.Show()
+                picP2Turn.Hide()
+            ElseIf _currentTurn Is _p2 Then
+                picP2Turn.Show()
+                picP1Turn.Hide()
+            End If
+            _turnsWithoutCapture = loadGame.getTurnsWithoutCapture
+            _pieces = loadGame.getPieces
 
+            For i = 0 To _intNumberOfSpaces
+                _spaces(i).setPiece(Nothing)
+                _spaces(i).getPicBox.Image = Nothing
+                _spaces(i).getPicBox.BackColor = _spaces(i).getColor
+            Next
+
+            For i = 0 To _intNumberOfPieces
+                For j = 0 To _intNumberOfSpaces
+                    If _pieces(i).getLocation Is _spaces(j) Then
+                        _spaces(j).setPiece(_pieces(i))
+                        _spaces(j).getPicBox.Image = _pieces(i).getImage
+                        Exit For
+                    End If
+                Next
+            Next
+            _comboPiece = loadGame.getComboPiece()
+            If _comboPiece IsNot Nothing Then
+                _initialSpace = _comboPiece.getLocation
+                lblInitialSpace.Text = _initialSpace.getName
+                _initialSpace.getPicBox.BackColor = Color.Tan
+            End If
+
+            lblPlayer1Name.Text = _p1.getName
+            lblPlayer2Name.Text = _p2.getName
+            lblP1PiecesTaken.Text = _p1.getPiecesTaken.ToString
+            lblP2PiecesTaken.Text = _p2.getPiecesTaken.ToString
+        Else
+            If _newOrLoad = "loadFromStart" Then
+                Dim StartScreen As New StartScreen
+                StartScreen.Show()
+                Me.Close()
+            End If
+        End If
     End Sub
 
     Private Sub updateGame()
@@ -295,11 +343,11 @@ Public Class Checkers
             _winCondition = "p2Win"
         ElseIf _p2.getPiecesRemaining = 0 Then
             _winCondition = "p1Win"
-        ElseIf _turnsWithoutCapture = 50 & _p1.getPiecesRemaining > _p2.getPiecesRemaining Then
+        ElseIf _turnsWithoutCapture = 50 And _p1.getPiecesRemaining > _p2.getPiecesRemaining Then
             _winCondition = "p1WinStall"
-        ElseIf _turnsWithoutCapture = 50 & _p2.getPiecesRemaining > _p1.getPiecesRemaining Then
+        ElseIf _turnsWithoutCapture = 50 And _p2.getPiecesRemaining > _p1.getPiecesRemaining Then
             _winCondition = "p2WinStall"
-        ElseIf _turnsWithoutCapture = 50 & _p1.getPiecesRemaining = _p2.getPiecesRemaining Then
+        ElseIf _turnsWithoutCapture = 50 And _p1.getPiecesRemaining = _p2.getPiecesRemaining Then
             _winCondition = "draw"
         End If
 
@@ -674,7 +722,9 @@ Public Class Checkers
             Case "new"
                 newGame()
             Case "load"
-                loadGame()
+                loadGame("game")
+            Case "loadFromStart"
+                loadGame("start")
         End Select
         lblPlayer1Name.Text = _p1.getName
         lblPlayer2Name.Text = _p2.getName
@@ -684,12 +734,10 @@ Public Class Checkers
 
     Private Sub mnuLoad_Click(sender As Object, e As EventArgs) Handles mnuLoad.Click
         '   Allows user to select game to load, and then loads it.
-        Dim query = MsgBox("Are you sure that you want to exit? (Unsaved progress will be lost!)", vbYesNo, "Caution!")
+        Dim query = MsgBox("Are you sure that you want to load? (Unsaved progress will be lost!)", vbYesNo, "Caution!")
         Select Case query
             Case vbYes
-                Dim newCheckers As New Checkers(_p1, _p2, "load")
-                newCheckers.Show()
-                Me.Close()
+                loadGame("load")
         End Select
     End Sub
 
@@ -732,5 +780,41 @@ Public Class Checkers
         Dim gameLog As New GameLog
         gameLog.ShowDialog()
 
+    End Sub
+
+    Private Sub mnuSave_Click(sender As Object, e As EventArgs) Handles mnuSave.Click
+        'Saves the users game.
+        Dim fileLocation As String = System.IO.Path.Combine(Application.StartupPath, "SaveGame.csv")
+        Dim query = MsgBox("Are you sure you want to save? Previous save game will be erased!", vbYesNo, "Caution")
+        Select Case query
+            Case vbYes
+                Try
+                    Dim objWriter As New System.IO.StreamWriter(fileLocation, False)
+
+                    objWriter.WriteLine(_p1.getNumber & "," & _p1.getName & "," & _p1.getPiecesTaken & "," & _p1.getPiecesRemaining)
+                    objWriter.WriteLine(_p2.getNumber & "," & _p2.getName & "," & _p2.getPiecesTaken & "," & _p2.getPiecesRemaining)
+                    objWriter.WriteLine(_currentTurn.getNumber)
+                    objWriter.WriteLine(_turnsWithoutCapture)
+                    For i = 0 To _intNumberOfPieces
+                        If _pieces(i).getAlive Then
+                            objWriter.WriteLine(_pieces(i).getPlayer.getNumber & "," & _pieces(i).getName & "," & _pieces(i).getAlive &
+                            "," & _pieces(i).getLocation.getName & "," & _pieces(i).getKing)
+                        Else
+                            objWriter.WriteLine(_pieces(i).getPlayer.getNumber & "," & _pieces(i).getName & "," & _pieces(i).getAlive &
+                            "," & "Nothing" & "," & _pieces(i).getKing)
+                        End If
+                    Next
+                    If _comboPiece IsNot Nothing Then
+                        objWriter.WriteLine(_comboPiece.getName())
+                    Else
+                        objWriter.WriteLine("Nothing")
+                    End If
+
+                    objWriter.Close()
+                    MsgBox("Game was saved successfully!", , "Success")
+                Catch ex As Exception
+                    MsgBox("Something went wrong, game could not be saved!", , "Error")
+                End Try
+        End Select
     End Sub
 End Class

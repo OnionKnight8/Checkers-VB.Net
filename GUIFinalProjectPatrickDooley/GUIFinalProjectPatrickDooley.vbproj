@@ -105,6 +105,7 @@
     <Compile Include="Instructions.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="LoadGame.vb" />
     <Compile Include="Player.vb" />
     <Compile Include="StartScreen.vb">
       <SubType>Form</SubType>

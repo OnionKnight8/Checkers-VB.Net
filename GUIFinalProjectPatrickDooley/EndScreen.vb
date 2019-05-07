@@ -56,6 +56,20 @@ Public Class EndScreen
         writeLog()
     End Sub
 
+    Private Sub mnuAbout_Click(sender As Object, e As EventArgs) Handles btnCredits.Click
+        'Opens About form.
+        Dim aboutForm As New About
+        aboutForm.ShowDialog()
+
+    End Sub
+
+    Private Sub mnuLog_Click(sender As Object, e As EventArgs) Handles btnLog.Click
+        'Opens GameLog form.
+        Dim gameLog As New GameLog
+        gameLog.ShowDialog()
+
+    End Sub
+
     Private Function writeLog()
         '   Writes the result of the game to the top of the game log. Only the last 10 games are stored.
         Dim fileLocation As String = System.IO.Path.Combine(Application.StartupPath, "GameLog.csv")
@@ -88,4 +102,14 @@ Public Class EndScreen
 
         Return Nothing
     End Function
+
+    Private Sub btnYes_Click(sender As Object, e As EventArgs) Handles btnYes.Click
+        Dim StartScreen As New StartScreen
+        StartScreen.Show()
+        Me.Close()
+    End Sub
+
+    Private Sub btnNo_Click(sender As Object, e As EventArgs) Handles btnNo.Click
+        Application.Exit()
+    End Sub
 End Class

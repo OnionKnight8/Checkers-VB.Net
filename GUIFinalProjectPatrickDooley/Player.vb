@@ -21,7 +21,7 @@ Public Class Player
     Function getNumber() As Integer
         Return _intNumber
     End Function
-    Function setPlayer(ByVal intNumber As Integer)
+    Function setNumber(ByVal intNumber As Integer)
         _intNumber = intNumber
         Return Nothing
     End Function

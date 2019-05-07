@@ -217,25 +217,25 @@ Partial Class Checkers
         'mnuNew
         '
         Me.mnuNew.Name = "mnuNew"
-        Me.mnuNew.Size = New System.Drawing.Size(100, 22)
+        Me.mnuNew.Size = New System.Drawing.Size(180, 22)
         Me.mnuNew.Text = "New"
         '
         'mnuSave
         '
         Me.mnuSave.Name = "mnuSave"
-        Me.mnuSave.Size = New System.Drawing.Size(100, 22)
+        Me.mnuSave.Size = New System.Drawing.Size(180, 22)
         Me.mnuSave.Text = "Save"
         '
         'mnuLoad
         '
         Me.mnuLoad.Name = "mnuLoad"
-        Me.mnuLoad.Size = New System.Drawing.Size(100, 22)
+        Me.mnuLoad.Size = New System.Drawing.Size(180, 22)
         Me.mnuLoad.Text = "Load"
         '
         'mnuExit
         '
         Me.mnuExit.Name = "mnuExit"
-        Me.mnuExit.Size = New System.Drawing.Size(100, 22)
+        Me.mnuExit.Size = New System.Drawing.Size(180, 22)
         Me.mnuExit.Text = "Exit"
         '
         'HelpToolStripMenuItem

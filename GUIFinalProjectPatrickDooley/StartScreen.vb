@@ -36,8 +36,12 @@ Public Class StartScreen
     End Sub
 
     Private Sub mnuLoad_Click(sender As Object, e As EventArgs) Handles mnuLoad.Click
-        '   Allows user to select game to load, and then loads it.
-
+        '   Allows user to load game.
+        Dim p1 As New Player(1, "Player1", 0, 12)
+        Dim p2 As New Player(2, "Player2", 0, 12)
+        Dim checkersForm As New Checkers(p1, p2, "loadFromStart")
+        checkersForm.Show()
+        Me.Close()
     End Sub
 
     Private Sub mnuClear_Click(sender As Object, e As EventArgs) Handles mnuClear.Click
